@@ -1,4 +1,4 @@
-import { database } from "../database";
+import { database } from "../../../database";
 import { UsersModel } from "../models/u_user";
 
 export const findAllUSers = async () => {

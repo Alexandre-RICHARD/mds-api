@@ -1,16 +1,15 @@
 import type { Request, Response } from "express";
 import { Router as createRouter } from "express";
 
-import { testController } from "./controllers/testController";
-
-// import { errorController } from "./controllers/errorController";
+import { testController } from "./users/controllers/testController";
 
 const router = createRouter();
 
-// Here will be all our routes
 router.get("/test", testController.test);
 
-// Handling all other route unassigned to a controller method
+/*
+  Handle all remaining endpoint that does not match any routes
+*/
 router.use((_req: Request, res: Response): void => {
   res
     .status(404)

@@ -1,6 +1,6 @@
 import { DataTypes } from "sequelize";
 
-import { database as db } from "../database";
+import { database as db } from "../../../database";
 
 export const UsersModel = db.define(
   "Users",

@@ -23,9 +23,7 @@ export const database = new Sequelize(
 
 export const testDatabase = async () => {
   try {
-    await database.authenticate(); // Test d'authentification
-    // eslint-disable-next-line no-console
-    console.log("Connexion réussie à la base de données !");
+    await database.authenticate();
   } catch (error) {
     throw new Error(
       `Erreur lors de la connexion à la base : ${JSON.stringify(error)}`,

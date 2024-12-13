@@ -1,0 +1,15 @@
+{
+    "execMap": {
+        "ts": "tsx"
+    },
+    "ignore": [
+        ".git",
+        "node_modules",
+        "build",
+        "report"
+    ],
+    "watch": [
+        "./src"
+    ],
+    "ext": "ts"
+}

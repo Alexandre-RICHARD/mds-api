@@ -4,7 +4,7 @@ import type { Express } from "express";
 import express from "express";
 
 import { testDatabase } from "./database";
-import router from "./v1/router";
+import { routerV1 } from "./v1/router";
 
 dotenv.config();
 
@@ -20,7 +20,7 @@ const app: Express = express();
 app.use(cors(corsOptions));
 // Using json for request response
 app.use(express.json());
-app.use(router);
+app.use(routerV1);
 
 testDatabase().catch((error) => {
   throw new Error(JSON.stringify(error));

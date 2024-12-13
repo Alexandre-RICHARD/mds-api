@@ -1,12 +1,15 @@
+import dotenv from "dotenv";
 import { Sequelize } from "sequelize";
 
+dotenv.config();
+
 export const database = new Sequelize(
-  "conception_sql",
-  "sa",
-  "au4uqbf11-C-J_pass",
+  process.env.DB_DATABASE,
+  process.env.DB_USER,
+  process.env.DB_PASSWORD,
   {
-    host: "localhost",
-    port: 1433,
+    host: process.env.DB_HOST,
+    port: process.env.DB_PORT,
     dialect: "mssql",
     dialectOptions: {
       options: {
@@ -18,11 +21,14 @@ export const database = new Sequelize(
   },
 );
 
-(async () => {
+export const testDatabase = async () => {
   try {
     await database.authenticate(); // Test d'authentification
+    // eslint-disable-next-line no-console
     console.log("Connexion réussie à la base de données !");
   } catch (error) {
-    console.error("Erreur lors de la connexion à la base :", error);
+    throw new Error(
+      `Erreur lors de la connexion à la base : ${JSON.stringify(error)}`,
+    );
   }
-})();
+};

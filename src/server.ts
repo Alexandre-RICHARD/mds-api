@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import type { Express } from "express";
 import express from "express";
 
+import { testDatabase } from "./database";
 import router from "./router";
 
 dotenv.config();
@@ -14,7 +15,6 @@ const corsOptions = {
   preflightContinue: false,
 };
 
-// Create app server with express
 const app: Express = express();
 // Using of cors for request origin handling and other request config
 app.use(cors(corsOptions));
@@ -22,9 +22,9 @@ app.use(cors(corsOptions));
 app.use(express.json());
 app.use(router);
 
-// Get port from .env file
+testDatabase();
+
 const PORT = process.env.LOCAL_PORT;
-// Export of starting function
 export const start = () =>
   app.listen(PORT, (): void => {
     // eslint-disable-next-line no-console

@@ -103,6 +103,3 @@ Léane : https://github.com/leanecharpentier/running-shop-api
 Louis : https://github.com/KobalaGlou/ProjetAPIDofus
 Kévin : https://github.com/Frize01/mds-api-tp
 Raphaël : https://github.com/RaphLho/MDS-TP-API
-
-
-

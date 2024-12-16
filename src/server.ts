@@ -1,10 +1,10 @@
 import cors from "cors";
 import dotenv from "dotenv";
-import type { Express } from "express";
-import express from "express";
+import express, { type Express, type Request, type Response } from "express";
 
-import { testDatabase } from "./database";
-import { routerV1 } from "./v1/router";
+// import jwt from "jsonwebtoken";
+import { database, testDatabase } from "./database";
+import { routerV1 } from "./v1/routerV1";
 
 dotenv.config();
 
@@ -20,15 +20,31 @@ const app: Express = express();
 app.use(cors(corsOptions));
 // Using json for request response
 app.use(express.json());
-app.use(routerV1);
+// All endpoints starting with /vX will be handle by its linked router only
+app.use("/v1", routerV1);
 
-testDatabase().catch((error) => {
-  throw new Error(JSON.stringify(error));
+// Handle all remaining endpoint that does not match any routes
+app.use((req: Request, res: Response): void => {
+  res
+    .status(404)
+    .json(`Cette route (${req.originalUrl}) n'est pas gérée par le serveur.`);
 });
 
 const PORT = process.env.LOCAL_PORT;
 export const start = () =>
-  app.listen(PORT, (): void => {
-    // eslint-disable-next-line no-console
-    console.log(`Server works on http://localhost:${PORT}`);
+  testDatabase().catch((error) => {
+    throw new Error(JSON.stringify(error));
   });
+app.listen(PORT, (): void => {
+  // eslint-disable-next-line no-console
+  console.log(`Server works on http://localhost:${PORT}`);
+});
+
+// Close database connection when server disconnect
+// eslint-disable-next-line @typescript-eslint/no-misused-promises
+process.on("SIGINT", async () => {
+  await database.close();
+  // eslint-disable-next-line no-console
+  console.log("Serveur arrêté et connexion à la base de données fermée.");
+  process.exit(0);
+});

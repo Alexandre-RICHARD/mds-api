@@ -2,7 +2,7 @@ import type { Request, Response } from "express";
 
 import { findAllUSers } from "../query/findAllUsers";
 
-export const testController = {
+export const usersController = {
   test: async (_req: Request, res: Response) => {
     try {
       const results = await findAllUSers();

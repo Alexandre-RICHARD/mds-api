@@ -3,8 +3,9 @@ import dotenv from "dotenv";
 import type { Express } from "express";
 import express from "express";
 
+// import jwt from "jsonwebtoken";
 import { testDatabase } from "./database";
-import { routerV1 } from "./v1/router";
+import { routerV1 } from "./v1/routerV1";
 
 dotenv.config();
 

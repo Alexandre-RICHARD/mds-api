@@ -389,7 +389,7 @@ CREATE TABLE i_image(
 
 CREATE TABLE c_commercial_handling(
   c_id_commercial_handling INT IDENTITY,
-  c_id_user_handler INT,
+  c_id_user_handler INT NOT NULL,
   c_id_user_handled INT NOT NULL,
   PRIMARY KEY(c_id_commercial_handling),
   FOREIGN KEY(c_id_user_handler) REFERENCES u_user(u_id_user),
@@ -444,7 +444,6 @@ CREATE TABLE c_customer_review(
   FOREIGN KEY(c_id_product) REFERENCES p_product(p_id_product)
 );
 
--- Add manually id from looping script
 CREATE TABLE c_cart(
   c_id_cart INT IDENTITY,
   c_id_user INT,
@@ -455,7 +454,6 @@ CREATE TABLE c_cart(
   FOREIGN KEY(c_id_product) REFERENCES p_product(p_id_product)
 );
 
--- Add manually id from looping script
 CREATE TABLE h_has_specifications(
   h_id_has_specifications INT IDENTITY,
   h_id_product_type INT,
@@ -465,7 +463,6 @@ CREATE TABLE h_has_specifications(
   FOREIGN KEY(h_id_product_specification) REFERENCES p_product_specification(p_id_product_specification)
 );
 
--- Add manually id from looping script
 CREATE TABLE p_product_has_specification(
   p_id_product_has_specification INT IDENTITY,
   p_id_product INT,
@@ -476,7 +473,6 @@ CREATE TABLE p_product_has_specification(
   FOREIGN KEY(p_id_product_specification) REFERENCES p_product_specification(p_id_product_specification)
 );
 
--- Add manually id from looping script
 CREATE TABLE o_order_contains(
   o_id_order_contains INT IDENTITY,
   o_id_user INT,

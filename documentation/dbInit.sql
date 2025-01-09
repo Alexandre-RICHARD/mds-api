@@ -33,13 +33,9 @@ CREATE DATABASE conception_sql;
 -- ) BEGIN ALTER DATABASE conception_sql_deleted
 -- SET
 --   SINGLE_USER WITH ROLLBACK IMMEDIATE;
-
 -- DROP DATABASE conception_sql_deleted;
-
 -- END;
-
 -- CREATE DATABASE conception_sql_deleted;
-
 GO
 ;
 
@@ -573,6 +569,41 @@ GO
 -- Insert into to feed database
 -- ===================================
 -- Start feeding u_user
+INSERT INTO
+  u_user (
+    u_role,
+    u_registered_at,
+    u_lastname,
+    u_firstname,
+    u_mail_adress,
+    u_hashed_password,
+    u_adress_country,
+    u_adress_region_code,
+    u_adress_city,
+    u_adress_location,
+    u_adress_precision,
+    u_is_deleted
+  )
+VALUES
+  (
+    'customer',
+    DATEADD(
+      DAY,
+      - ABS(CHECKSUM(NEWID()) % 365 * 4.3),
+      GETDATE()
+    ),
+    'theToto',
+    'theOne',
+    'totoTheOne@gmail.com',
+    '$2b$10$n.VL6SzhEdfisYpQnDswYOpDyteAyay.8Ukk.Ghlw99yaWyl2fTqa',
+    'ils',
+    'ont',
+    'tous la',
+    'même',
+    'adresse',
+    0
+  );
+
 DECLARE @line_limit_u_user INT = 100;
 
 DECLARE @count_u_user INT = 0;
@@ -1188,11 +1219,8 @@ GO
 ;
 
 -- DECLARE @database_name NVARCHAR(128) = 'conception_sql';
-
 -- DECLARE @deleted_database_name NVARCHAR(128) = 'conception_sql_deleted';
-
 -- DECLARE @sql NVARCHAR(MAX) = '';
-
 -- Script to copy/paste structure of tables from conception_sql to conception_sql_deleted database
 -- SELECT
 --   @sql = @sql + '
@@ -1204,17 +1232,12 @@ GO
 -- '
 -- FROM
 --   sys.tables t EXEC sp_executesql @sql;
-
 -- Try to create trigger on all table, but not successed (but not far i know)
 -- GO
 -- ;
-
 -- DECLARE @database_name NVARCHAR(128) = 'conception_sql';
-
 -- DECLARE @deleted_database_name NVARCHAR(128) = 'conception_sql_deleted';
-
 -- DECLARE @sql NVARCHAR(MAX) = '';
-
 -- SELECT
 --   @sql = @sql + '
 -- CREATE TRIGGER trg_' + t.name + '_Delete

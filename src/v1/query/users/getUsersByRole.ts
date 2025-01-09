@@ -9,7 +9,10 @@ export const getUsersByRole = async (role: string) => {
     });
     return users;
   } catch (error) {
-    console.error("Erreur lors de la connexion ou de la requête : ", error);
+    console.error(
+      "getUsersByRole => Erreur lors de la connexion ou de la requête : ",
+      error,
+    );
     return undefined;
   }
 };

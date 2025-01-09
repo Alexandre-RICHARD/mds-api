@@ -2,7 +2,6 @@ import cors from "cors";
 import dotenv from "dotenv";
 import express, { type Express, type Request, type Response } from "express";
 
-// import jwt from "jsonwebtoken";
 import { database, testDatabase } from "./database";
 import { routerV1 } from "./v1/routerV1";
 

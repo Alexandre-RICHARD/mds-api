@@ -61,7 +61,7 @@ export const UsersModel = db.define(
     },
   },
   {
-    tableName: "u_user_data",
+    tableName: "u_user",
     timestamps: false,
   },
 );

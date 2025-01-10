@@ -8,10 +8,10 @@ services:
     depends_on:
       - sqlserver
     environment:
-      - DB_HOST=sqlserver
-      - DB_USER=sa
-      - DB_PASSWORD=yourStrongPassword!
-      - DB_NAME=YourDatabase
+      - DB_HOST=localhost
+      - DB_USER=toto
+      - DB_PASSWORD=toto
+      - DB_NAME=conception_sql
 
   sqlserver:
     image: mcr.microsoft.com/mssql/server:2022-latest

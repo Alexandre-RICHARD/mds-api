@@ -1,14 +1,17 @@
 # Utiliser une image Node.js officielle
 FROM node:18
 
+# Installer pnpm
+RUN npm install -g pnpm
+
 # Définir le répertoire de travail
-WORKDIR /usr/src/app
+WORKDIR /root/mds-api
 
-# Copier les fichiers package.json et package-lock.json
-COPY package*.json ./
+# Copier les fichiers package.json et pnpm-lock.json
+COPY package.json pnpm-lock.yaml ./
 
-# Installer les dépendances
-RUN npm install
+# Installer les dépendances avec pnpm
+RUN pnpm install
 
 # Copier le reste des fichiers de l'application
 COPY . .
@@ -16,5 +19,5 @@ COPY . .
 # Exposer le port
 EXPOSE 3000
 
-# Commande pour démarrer l'application
-CMD ["node", "app.js"]
+# Commande pour démarrer l'application avec ts-node (si vous ne compilez pas TypeScript)
+CMD ["pnpm", "exec", "ts-node", "index.ts"]

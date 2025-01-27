@@ -1,8 +1,13 @@
-import { DataTypes } from "sequelize";
+import { DataTypes, type ModelDefined } from "sequelize";
 
 import { database as db } from "../../database";
+import type { DeliveryModelAttributes } from "../types/models/d_delivery.type";
+import type { DeliveryCreationAttributes } from "../types/modelsCreationAttributes/d_delivery.sequelizeAttributes.type";
 
-export const DeliveryModel = db.define(
+export const DeliveryModel: ModelDefined<
+  DeliveryModelAttributes,
+  DeliveryCreationAttributes
+> = db.define(
   "Delivery",
   {
     d_id_delivery: {

@@ -1,5 +1,6 @@
 import { UsersModel } from "../../models/u_user";
-import type { UpdateUser } from "../../types/users/updateUser.type";
+import type { UpdateUserArgs } from "../../types/query/users/args/updateUser.args.type";
+import type { UpdateUserReturn } from "../../types/query/users/return/updateUser.return.type";
 
 export const updateUser = async ({
   role,
@@ -14,7 +15,7 @@ export const updateUser = async ({
   adressLocation,
   adressPrecision,
   isDeleted,
-}: UpdateUser) => {
+}: UpdateUserArgs): UpdateUserReturn => {
   try {
     const updatedUser = await UsersModel.create({
       u_role: role,
@@ -36,6 +37,6 @@ export const updateUser = async ({
       "createUser => Erreur lors de la connexion ou de la requête : ",
       error,
     );
-    return undefined;
+    return null;
   }
 };

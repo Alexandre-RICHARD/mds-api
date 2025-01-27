@@ -1,20 +1,21 @@
 import { UsersModel } from "../../models/u_user";
-import type { CreateUser } from "../../types/users/createUser.type";
+import type { CreateUserArgs } from "../../types/query/users/args/createUser.args.type";
+import type { CreateUserReturn } from "../../types/query/users/return/createUser.return.type";
 
 export const createUser = async ({
-  adressCity,
-  adressCountry,
-  adressLocation,
-  adressPrecision,
-  adressRegionCode,
-  firstname,
-  isDeleted,
+  role,
+  registeredAt,
   lastname,
+  firstname,
   mail,
   hashedPassword,
-  registeredAt,
-  role,
-}: CreateUser) => {
+  adressCountry,
+  adressRegionCode,
+  adressCity,
+  adressLocation,
+  adressPrecision,
+  isDeleted,
+}: CreateUserArgs): CreateUserReturn => {
   try {
     const newUser = await UsersModel.create({
       u_role: role,
@@ -36,6 +37,6 @@ export const createUser = async ({
       "createUser => Erreur lors de la connexion ou de la requête : ",
       error,
     );
-    return undefined;
+    return null;
   }
 };

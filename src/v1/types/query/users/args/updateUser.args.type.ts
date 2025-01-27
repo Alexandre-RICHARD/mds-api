@@ -1,6 +1,7 @@
-export type CreateUser = {
+export type UpdateUserArgs = {
+  user: unknown;
   role: string;
-  registeredAt: string;
+  registeredAt: Date;
   lastname: string;
   firstname: string;
   mail: string;
@@ -10,5 +11,5 @@ export type CreateUser = {
   adressCity: string;
   adressLocation: string;
   adressPrecision: string;
-  isDeleted: 0 | 1;
+  isDeleted: boolean;
 };

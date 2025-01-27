@@ -17,7 +17,7 @@ export const usersController = {
   getUsersByRole: async (req: Request, res: Response) => {
     const { role } = req.params;
     try {
-      const results = await getUsersByRole(role);
+      const results = await getUsersByRole({ role });
       res.status(201).json(results);
     } catch (error) {
       res.status(500).json(["server-error", error]);
@@ -40,7 +40,7 @@ export const usersController = {
     try {
       const user = await createUser({
         role: RoleEnum.customer,
-        registeredAt: new Date().toISOString(),
+        registeredAt: new Date(),
         lastname,
         firstname,
         mail,
@@ -50,7 +50,7 @@ export const usersController = {
         adressCity,
         adressLocation,
         adressPrecision,
-        isDeleted: 0,
+        isDeleted: false,
       });
 
       return res.status(201).json(user);
@@ -62,7 +62,7 @@ export const usersController = {
   login: async (req: Request, res: Response) => {
     const { email, rawPassword } = req.body as LoginEndpointBody;
 
-    const foundUserByMail = await findUserByEmail(email);
+    const foundUserByMail = await findUserByEmail({ email });
     if (!foundUserByMail) {
       return res.status(404).json("user_not_found_with_mail_adress");
     }
@@ -81,6 +81,7 @@ export const usersController = {
     const expiresIn = 24 * 60 * 60;
     const token = jwt.sign(
       {
+        userId: foundUserValues.u_id_user,
         fullname: `${foundUserValues.u_firstname} ${foundUserValues.u_lastname}`,
         role: foundUserValues.u_role,
         email: foundUserValues.u_mail_adress,
@@ -111,7 +112,7 @@ export const usersController = {
       adressPrecision,
     } = req.body as UpdateUserEndpointBody;
 
-    const userToUpdate = await findUserById(userId);
+    const userToUpdate = await findUserById({ id: userId });
 
     if (!userToUpdate) {
       return res.status(404).json("user_not_found");

@@ -1,8 +1,13 @@
-import { DataTypes } from "sequelize";
+import { DataTypes, type ModelDefined } from "sequelize";
 
 import { database as db } from "../../database";
+import type { OrdersModelAttributes } from "../types/models/o_order.type";
+import type { OrdersCreationAttributes } from "../types/modelsCreationAttributes/o_order.sequelizeAttributes.type";
 
-export const OrdersModel = db.define(
+export const OrdersModel: ModelDefined<
+  OrdersModelAttributes,
+  OrdersCreationAttributes
+> = db.define(
   "Orders",
   {
     o_id_user_order: {

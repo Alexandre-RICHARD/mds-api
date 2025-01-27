@@ -1,8 +1,13 @@
-import { DataTypes } from "sequelize";
+import { DataTypes, type ModelDefined } from "sequelize";
 
 import { database as db } from "../../database";
+import type { OrderContainsModelAttributes } from "../types/models/o_order_contains.type";
+import type { OrderContainsCreationAttributes } from "../types/modelsCreationAttributes/o_order_contains.sequelizeAttributes.type";
 
-export const OrderContainsModel = db.define(
+export const OrderContainsModel: ModelDefined<
+  OrderContainsModelAttributes,
+  OrderContainsCreationAttributes
+> = db.define(
   "OrderContains",
   {
     o_id_order_contains: {

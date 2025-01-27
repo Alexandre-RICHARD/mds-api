@@ -1,8 +1,13 @@
-import { DataTypes } from "sequelize";
+import { DataTypes, type ModelDefined } from "sequelize";
 
 import { database as db } from "../../database";
+import type { ProductModelAttributes } from "../types/models/p_product.type";
+import type { ProductCreationAttributes } from "../types/modelsCreationAttributes/p_product.sequelizeAttributes.type";
 
-export const ProductModel = db.define(
+export const ProductModel: ModelDefined<
+  ProductModelAttributes,
+  ProductCreationAttributes
+> = db.define(
   "Product",
   {
     p_id_product: {

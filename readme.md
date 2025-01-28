@@ -3,11 +3,11 @@
 ## Technologies imposées 
 - Node / Express
 - SQL Serveur
-- ORM : Sequelize
+- ORM (ex: Sequelize)
 - Documentation : obligatoire avec SWAGGER
 - JSON (pas de XML ou de CSV)
 - **Mise en prod : attendre pour le moment**
-- Mocha pour les tests
+- Mocha / JEST pour les tests
 
 ## Bonnes pratiques imposées 
 - Intégrer obligatoirement un numéro de version dans vos URLs
@@ -34,7 +34,7 @@
 
 - **Utilisateur** - _/users_
     - **POST** - _/users_
-    - **GET** - _/users/{role}_
+    - **GET** - _/users/role/{role}_
     - **GET** - _/users/{id}_
     - **PUT** - _/users/{id}_
     - **DELETE** - _/users/{id}_
@@ -85,21 +85,27 @@
 - REST => 4 pts
 - JSON / XML : header request => 1pt
 - JWT => 3 pts
-- Mise en production => 4 pts
-- Tests unitaires => 3 pts
+- Mise en production (avec P2M + SQLServer) => 4 pts
+- Tests unitaires + tests de charge (K6 / Artillery) => 3 pts
 - Postman + collections + token => 4 pts
 - Architecture & Qualité de code => 4 pts
 - page dédiée chat avec Socket.io => en lien avec le DAB => 10 pts
 
 ## Repo GIT
 
-Yann : https://github.com/Chakyu23/API_COURS
-Tom : https://github.com/tombury59/MDS_API_BOUTIQUE
-Aubin : https://github.com/AubinManceau/express-api-grocery
-Alexandre : https://github.com/Alexandre-RICHARD/mds-api
-Enzo : https://github.com/Minozen72/MDS-API-ZOO
-Léa : https://github.com/leagrnr/gpa-api
-Léane : https://github.com/leanecharpentier/running-shop-api
-Louis : https://github.com/KobalaGlou/ProjetAPIDofus
-Kévin : https://github.com/Frize01/mds-api-tp
-Raphaël : https://github.com/RaphLho/MDS-TP-API
+- Yann : https://github.com/Chakyu23/API_COURS
+- Tom : https://github.com/tombury59/MDS_API_BOUTIQUE
+- Aubin : https://github.com/AubinManceau/express-api-grocery
+- Alexandre : https://github.com/Alexandre-RICHARD/mds-api
+- Enzo : https://github.com/Minozen72/MDS-API-ZOO
+- Léa : https://github.com/leagrnr/gpa-api
+- Léane : https://github.com/leanecharpentier/running-shop-api
+- Louis : https://github.com/KobalaGlou/ProjetAPIDofus
+- Kévin : https://github.com/Frize01/mds-api-tp
+- Raphaël : https://github.com/RaphLho/MDS-TP-API
+
+## Evaluation
+
+Le 31 Janvier, vous commencerez la journée par un QCM tous ensemble. Vous passerez ensuite 1 par 1 en présentation pendant 10 minutes devant vos deux meilleurs profs : Clément & Kévin. Vous aurez 10 minutes pour nous présenter un maximum de choses pour que nous puissions vous noter selon le barème mentionné ci-dessus.
+
+Vous aurez entre 15 et 20 minutes pour réaliser le QCM - la durée précise vous sera communiquée au début !

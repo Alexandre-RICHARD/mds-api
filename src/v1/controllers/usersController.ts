@@ -1,8 +1,8 @@
 import type { Request, Response } from "express";
-import jwt from "jsonwebtoken";
 
 import { bcryptComparatorHelper } from "../../helpers/bcryptComparator.helper";
 import { bcryptEncoderHelper } from "../../helpers/bcryptEncoder.helper";
+import { jwtGenerator } from "../../helpers/jwtGenerator.helper";
 import { RoleEnum } from "../enum/role.enum";
 import { createUser } from "../query/users/createUser";
 import { findUserByEmail } from "../query/users/findUserByEmail";
@@ -78,22 +78,14 @@ export const usersController = {
       return res.status(403).json("wrong_credentials_for_login");
     }
 
-    const expiresIn = 24 * 60 * 60;
-    const token = jwt.sign(
-      {
-        userId: foundUserValues.u_id_user,
-        fullname: `${foundUserValues.u_firstname} ${foundUserValues.u_lastname}`,
-        role: foundUserValues.u_role,
-        email: foundUserValues.u_mail_adress,
-      },
-      process.env.JWT_SECRET_KEY,
-      {
-        expiresIn,
-        algorithm: "HS384",
-      },
-    );
+    const newToken = jwtGenerator({
+      userId: foundUserValues.u_id_user,
+      fullname: `${foundUserValues.u_firstname} ${foundUserValues.u_lastname}`,
+      role: foundUserValues.u_role,
+      email: foundUserValues.u_mail_adress,
+    });
 
-    res.header("Authorization", `Bearer ${token}`);
+    res.header("Authorization", `Bearer ${newToken}`);
 
     return res.status(200).json("auth_ok");
   },

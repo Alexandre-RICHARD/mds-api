@@ -1,6 +1,9 @@
 # Use node js alpine official image
 FROM node:20-alpine
 
+# Install pnpm globally
+RUN npm install -g pnpm
+
 # Define work repo
 WORKDIR /app
 
@@ -8,9 +11,9 @@ WORKDIR /app
 COPY package*.json ./
 
 # Install deps
-RUN npm ci --only=production
+RUN pnpm install --prod
 
-# Copie all project
+# Copy all project
 COPY . .
 
 # Define env variable

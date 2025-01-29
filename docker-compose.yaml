@@ -1,0 +1,40 @@
+version: "3.8"
+
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: sqlserver
+    restart: always
+    ports:
+      - "40110:${MSSQL_PORT}"
+    environment:
+      SA_PASSWORD: "${MSSQL_SA_PASSWORD}"
+      ACCEPT_EULA: "Y"
+    volumes:
+      - sqlserver_data:/var/opt/mssql
+    networks:
+      - app_network
+
+  nodeapp:
+    build: .
+    container_name: nodeapp
+    restart: always
+    ports:
+      - "8080:8080"
+    environment:
+      DB_HOST: "sqlserver"
+      DB_PORT: "${MSSQL_PORT}"
+      DB_USER: "${MSSQL_USER}"
+      DB_PASSWORD: "${MSSQL_SA_PASSWORD}"
+      DB_NAME: "${MSSQL_DATABASE}"
+    depends_on:
+      - sqlserver
+    networks:
+      - app_network
+
+volumes:
+  sqlserver_data:
+
+networks:
+  app_network:
+    driver: bridge

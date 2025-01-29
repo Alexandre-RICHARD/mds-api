@@ -13,13 +13,7 @@
         "check-types": "tsc --noEmit",
         " === Pnpm === ": "",
         "install-dependencies": "pnpm i",
-        "update-dependencies": "pnpm update",
-        "update-submodule": "git submodule update --init --recursive",
-        " === Build === ": "",
-        "build": "ncc build index.ts -m -o build",
-        "build-run": "node build/index.js",
-        "clean": "rd /s /q build || rm -rf build",
-        "clean:all": "rd /s /q build node_modules || rm -rf build node_modules"
+        "update-dependencies": "pnpm update"
     },
     "devDependencies": {
         "@stylistic/eslint-plugin": "^2.12.0",
@@ -30,7 +24,6 @@
         "@types/node": "^22.10.1",
         "@typescript-eslint/eslint-plugin": "^8.17.0",
         "@typescript-eslint/parser": "^8.17.0",
-        "@vercel/ncc": "^0.38.1",
         "autoprefixer": "^10.4.20",
         "bcrypt": "^5.1.1",
         "cors": "^2.8.5",

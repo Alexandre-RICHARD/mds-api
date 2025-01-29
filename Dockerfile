@@ -8,7 +8,7 @@ WORKDIR /app
 COPY package*.json ./
 
 # Install deps
-RUN npm install --only=production
+RUN npm ci --only=production
 
 # Copie all project
 COPY . .
@@ -20,4 +20,4 @@ ENV PORT=8080
 EXPOSE 8080
 
 # Start
-CMD ["node", "index.js"]
+CMD ["npm", "run", "start-prod"]

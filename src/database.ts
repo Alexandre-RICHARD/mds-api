@@ -25,6 +25,7 @@ export const testDatabase = async () => {
   try {
     await database.authenticate();
   } catch (error) {
+    console.error(error);
     throw new Error(
       `Erreur lors de la connexion à la base : ${JSON.stringify(error)}`,
     );

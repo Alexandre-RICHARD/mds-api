@@ -4,10 +4,10 @@ import { asyncHandler } from "../../middlewares/asyncRequestHandler";
 import { asyncSecurityHandler } from "../../middlewares/asyncSecurityHandler";
 import { usersController } from "../controllers/usersController";
 
-export const usersRouter = createRouter();
+export const tchatRouter = createRouter();
 
-usersRouter.get(
-  "/role/:role",
+tchatRouter.get(
+  "/users/:role",
   asyncSecurityHandler(usersController.getUsersByRole),
 );
-usersRouter.post("/login", asyncHandler(usersController.login));
+tchatRouter.post("/users/login", asyncHandler(usersController.login));

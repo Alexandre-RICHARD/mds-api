@@ -1,10 +1,12 @@
 import cors from "cors";
 import dotenv from "dotenv";
 import express, { type Express, type Request, type Response } from "express";
+import { createServer } from "http";
 import path from "path";
 
 import { database, testDatabase } from "./database";
 import { routerV1 } from "./v1/routerV1";
+import { SocketService } from "./v1/socketIo";
 
 dotenv.config();
 
@@ -15,6 +17,7 @@ const corsOptions = {
   preflightContinue: false,
 };
 
+// Create Express server
 const app: Express = express();
 // Using of cors for request origin handling and other request config
 app.use(cors(corsOptions));
@@ -22,6 +25,8 @@ app.use(cors(corsOptions));
 app.use(express.json());
 // All endpoints starting with /vX will be handle by its linked router only
 app.use("/v1", routerV1);
+// Connect socker.io to Express server
+SocketService.getInstance().initialize(createServer(app));
 
 // Define EJS as render template
 app.set("view engine", "ejs");

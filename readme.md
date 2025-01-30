@@ -1,34 +1,34 @@
 # TP
 
 ## Technologies imposées 
-- Node / Express
-- SQL Serveur
-- ORM (ex: Sequelize)
+X - Node / Express
+X - SQL Serveur
+X - ORM (ex: Sequelize)
 - Documentation : obligatoire avec SWAGGER
-- JSON (pas de XML ou de CSV)
-- **Mise en prod : attendre pour le moment**
+X - JSON (pas de XML ou de CSV)
+X - **Mise en prod : attendre pour le moment**
 - Mocha / JEST pour les tests
 
 ## Bonnes pratiques imposées 
-- Intégrer obligatoirement un numéro de version dans vos URLs
-- Respect du Linter ESLint avec la configuration donnée (cf ./documentation/linter.md)
+X - Intégrer obligatoirement un numéro de version dans vos URLs
+X - Respect du Linter ESLint avec la configuration donnée (cf ./documentation/linter.md)
 - Les paramètres pour filtrer vos résultats de recherches doivent être passer en $_GET (dans l'URL via ```?param1=valeur1&param2=valeur2```")
 
 ## Recherches / Organisation / Explications imposées
-- 1 repo GIT => créé maintenant, et vous me l'envoyez sur la discussion teams
-- GIT
-    - Messages clairs et cohérents. 
-    - Commits réguliers ET **pertinents** (chaque fin de fonctionnalité, mise en place d'un fichier, correctif, fix, etc...)
-- Dans votre repo GIT, vous allez devoir créer : 
-    - 1 dossier "documentation" pour la partie "recherches" que je vais vous demander. Je dois y retrouver : 
-        - 💩 Un fichier qui explique JWT
-        - 💩 Qu'est-ce que le REST / comment ça marche
-        - --> 💩 Modèle de Richardson et comment l'implémenter
+X - 1 repo GIT => créé maintenant, et vous me l'envoyez sur la discussion teams
+X - GIT
+X     - Messages clairs et cohérents. 
+X     - Commits réguliers ET **pertinents** (chaque fin de fonctionnalité, mise en place d'un fichier, correctif, fix, etc...)
+X - Dans votre repo GIT, vous allez devoir créer : 
+X     - 1 dossier "documentation" pour la partie "recherches" que je vais vous demander. Je dois y retrouver : 
+X         - 💩 Un fichier qui explique JWT
+X         - 💩 Qu'est-ce que le REST / comment ça marche
+X         - --> 💩 Modèle de Richardson et comment l'implémenter
         - Explication des Websockets / Socket.io
-        - 💩 Un fichier qui détail les bonnes pratiques de SWAGGER avec l'autodocumentation (comment la mettre en place)
-        - Un fichier qui détail les bonnes pratiques de POSTMAN avec les informations sur comment mettre en place des collections, et l'autogénération de Bearer
-        - --> 💩 Un fichier paramétré de ESLINT avec des paramétrages customs que tout le monde va devoir respecter
-        - 💩 Documentation sur le HTTP + HTTPS, avec tous les codes d'erreur et toutes les méthodes pour les API
+X         - 💩 Un fichier qui détail les bonnes pratiques de SWAGGER avec l'autodocumentation (comment la mettre en place)
+X         - Un fichier qui détail les bonnes pratiques de POSTMAN avec les informations sur comment mettre en place des collections, et l'autogénération de Bearer
+X         - --> 💩 Un fichier paramétré de ESLINT avec des paramétrages customs que tout le monde va devoir respecter
+X        - 💩 Documentation sur le HTTP + HTTPS, avec tous les codes d'erreur et toutes les méthodes pour les API
 
 ## Routes de base imposées
 
@@ -80,15 +80,15 @@
 ## Barème d'évaluation
 
 - Swagger / Documentation => 3pts
-- Connexion BDD => 1 pt
-- ORM => 3 pts
+X - Connexion BDD => 1 pt
+X - ORM => 3 pts
 - REST => 4 pts
-- JSON / XML : header request => 1pt
-- JWT => 3 pts
-- Mise en production (avec P2M + SQLServer) => 4 pts
+X - JSON / XML : header request => 1pt
+X - JWT => 3 pts
+X - Mise en production (avec P2M + SQLServer) => 4 pts
 - Tests unitaires + tests de charge (K6 / Artillery) => 3 pts
-- Postman + collections + token => 4 pts
-- Architecture & Qualité de code => 4 pts
+X - Postman + collections + token => 4 pts
+X - Architecture & Qualité de code => 4 pts
 - page dédiée chat avec Socket.io => en lien avec le DAB => 10 pts
 
 ## Repo GIT

@@ -12,16 +12,16 @@ IF EXISTS (
   FROM
     sys.databases
   WHERE
-    name = 'conception_sql'
-) BEGIN ALTER DATABASE conception_sql
+    name = 'mds_api_database'
+) BEGIN ALTER DATABASE mds_api_database
 SET
   SINGLE_USER WITH ROLLBACK IMMEDIATE;
 
-DROP DATABASE conception_sql;
+DROP DATABASE mds_api_database;
 
 END;
 
-CREATE DATABASE conception_sql;
+CREATE DATABASE mds_api_database;
 
 -- IF EXISTS (
 --   SELECT
@@ -29,13 +29,13 @@ CREATE DATABASE conception_sql;
 --   FROM
 --     sys.databases
 --   WHERE
---     name = 'conception_sql_deleted'
--- ) BEGIN ALTER DATABASE conception_sql_deleted
+--     name = 'mds_api_database_deleted'
+-- ) BEGIN ALTER DATABASE mds_api_database_deleted
 -- SET
 --   SINGLE_USER WITH ROLLBACK IMMEDIATE;
--- DROP DATABASE conception_sql_deleted;
+-- DROP DATABASE mds_api_database_deleted;
 -- END;
--- CREATE DATABASE conception_sql_deleted;
+-- CREATE DATABASE mds_api_database_deleted;
 GO
 ;
 
@@ -116,7 +116,7 @@ GO
 ;
 
 -- Using the new database for all remaining instructions
-USE conception_sql;
+USE mds_api_database;
 
 -- Delete user if exists
 GO
@@ -1214,10 +1214,10 @@ END;
 GO
 ;
 
--- DECLARE @database_name NVARCHAR(128) = 'conception_sql';
--- DECLARE @deleted_database_name NVARCHAR(128) = 'conception_sql_deleted';
+-- DECLARE @database_name NVARCHAR(128) = 'mds_api_database';
+-- DECLARE @deleted_database_name NVARCHAR(128) = 'mds_api_database_deleted';
 -- DECLARE @sql NVARCHAR(MAX) = '';
--- Script to copy/paste structure of tables from conception_sql to conception_sql_deleted database
+-- Script to copy/paste structure of tables from mds_api_database to mds_api_database_deleted database
 -- SELECT
 --   @sql = @sql + '
 -- IF NOT EXISTS (SELECT * FROM [' + @deleted_database_name + '].sys.objects WHERE object_id = OBJECT_ID(''' + @deleted_database_name + '.dbo.' + t.name + '''))
@@ -1231,8 +1231,8 @@ GO
 -- Try to create trigger on all table, but not successed (but not far i know)
 -- GO
 -- ;
--- DECLARE @database_name NVARCHAR(128) = 'conception_sql';
--- DECLARE @deleted_database_name NVARCHAR(128) = 'conception_sql_deleted';
+-- DECLARE @database_name NVARCHAR(128) = 'mds_api_database';
+-- DECLARE @deleted_database_name NVARCHAR(128) = 'mds_api_database_deleted';
 -- DECLARE @sql NVARCHAR(MAX) = '';
 -- SELECT
 --   @sql = @sql + '

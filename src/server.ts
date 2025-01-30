@@ -1,6 +1,7 @@
 import cors from "cors";
 import dotenv from "dotenv";
 import express, { type Express, type Request, type Response } from "express";
+import path from "path";
 
 import { database, testDatabase } from "./database";
 import { routerV1 } from "./v1/routerV1";
@@ -21,6 +22,12 @@ app.use(cors(corsOptions));
 app.use(express.json());
 // All endpoints starting with /vX will be handle by its linked router only
 app.use("/v1", routerV1);
+
+// Define EJS as render template
+app.set("view engine", "ejs");
+
+// Specify where are the views
+app.set("views", path.join(process.cwd(), "src/views"));
 
 // Handle all remaining endpoint that does not match any routes
 app.use((req: Request, res: Response): void => {

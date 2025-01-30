@@ -7,8 +7,8 @@
         "start-prod": "tsx ./index.ts",
         " === Common Test === ": "",
         "global-test": "pnpm check-types && pnpm lint-fix && pnpm unit-test-once",
-        "unit-test-watch": "",
-        "unit-test-once": "",
+        "unit-test-watch": "vitest watch",
+        "unit-test-once": "vitest run",
         "lint": "eslint .",
         "lint-fix": "eslint . --fix",
         "check-types": "tsc --noEmit",
@@ -49,6 +49,7 @@
         "eslint-plugin-simple-import-sort": "^12.1.1",
         "nodemon": "^3.0.3",
         "prettier": "^3.4.2",
-        "typescript-eslint": "^8.17.0"
+        "typescript-eslint": "^8.17.0",
+        "vitest": "^3.0.4"
     }
 }

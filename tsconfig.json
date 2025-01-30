@@ -33,7 +33,9 @@
     },
     "include": [
         "index.ts",
-        "src"
+        "src",
+        "setupTest.ts",
+        "vitest.config.ts"
     ],
     "exclude": [
         "build",

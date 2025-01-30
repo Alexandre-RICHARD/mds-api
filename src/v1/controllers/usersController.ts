@@ -9,9 +9,9 @@ import { findUserByEmail } from "../query/users/findUserByEmail";
 import { findUserById } from "../query/users/findUserById";
 import { getUsersByRole } from "../query/users/getUsersByRole";
 import { updateUser } from "../query/users/updateUser";
-import type { LoginEndpointBody } from "../types/users/endpointBody/login.endpointBody.type";
-import type { RegisterEndpointBody } from "../types/users/endpointBody/register.endpointBody.type";
-import type { UpdateUserEndpointBody } from "../types/users/endpointBody/updateUser.endpointBody.type";
+import type { LoginEndpointBody } from "../types/endpointBody/users/login.endpointBody.type";
+import type { RegisterEndpointBody } from "../types/endpointBody/users/register.endpointBody.type";
+import type { UpdateUserEndpointBody } from "../types/endpointBody/users/updateUser.endpointBody.type";
 
 export const usersController = {
   getUsersByRole: async (req: Request, res: Response) => {

@@ -1,13 +1,9 @@
 import { Router as createRouter } from "express";
 
 import { asyncHandler } from "../../middlewares/asyncRequestHandler";
-import { asyncSecurityHandler } from "../../middlewares/asyncSecurityHandler";
-import { usersController } from "../controllers/usersController";
+import { tchatController } from "../controllers/tchatController";
 
 export const tchatRouter = createRouter();
 
-tchatRouter.get(
-  "/users/:role",
-  asyncSecurityHandler(usersController.getUsersByRole),
-);
-tchatRouter.post("/users/login", asyncHandler(usersController.login));
+tchatRouter.get("/message", asyncHandler(tchatController.getMessages));
+tchatRouter.post("/message", asyncHandler(tchatController.sendMessage));

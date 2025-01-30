@@ -25,8 +25,6 @@ app.use(cors(corsOptions));
 app.use(express.json());
 // All endpoints starting with /vX will be handle by its linked router only
 app.use("/v1", routerV1);
-// Connect socker.io to Express server
-SocketService.getInstance().initialize(createServer(app));
 
 // Define EJS as render template
 app.set("view engine", "ejs");
@@ -41,9 +39,14 @@ app.use((req: Request, res: Response): void => {
     .json(`Cette route (${req.originalUrl}) n'est pas gérée par le serveur.`);
 });
 
+// Create server with http
+const server = createServer(app);
+// Connect socker.io to Express server
+SocketService.getInstance().initialize(server);
+
 const PORT = process.env.LOCAL_PORT;
 export const start = () => testDatabase();
-app.listen(PORT, (): void => {
+server.listen(PORT, (): void => {
   // eslint-disable-next-line no-console
   console.log(`Server works on http://localhost:${PORT}`);
 });

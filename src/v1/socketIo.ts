@@ -5,6 +5,7 @@ import { Server as SocketIOServer } from "socket.io";
 export class SocketService {
   private static instance: SocketService;
   private io: SocketIOServer | null = null;
+  private users = new Map<string, Socket>();
 
   // Get unique instance of io
   public static getInstance(): SocketService {
@@ -23,10 +24,18 @@ export class SocketService {
     });
 
     this.io.on("connection", (socket: Socket) => {
-      console.log("🟢 Un utilisateur est connecté");
+      SocketService.getInstance().emitMessage(
+        "newMessage",
+        "🟢 Un utilisateur s'est connecté",
+      );
+      this.users.set(socket.id, socket);
 
       socket.on("disconnect", () => {
-        console.log("🔴 Un utilisateur s'est déconnecté");
+        SocketService.getInstance().emitMessage(
+          "newMessage",
+          "🔴 Un utilisateur s'est déconnecté",
+        );
+        this.users.delete(socket.id);
       });
     });
   }
@@ -36,7 +45,16 @@ export class SocketService {
     if (this.io) {
       this.io.emit(event, data);
     } else {
-      console.warn("⚠️ Socket.IO n'est pas initialisé !");
+      console.error("Socket.IO not initialized");
+    }
+  }
+
+  public sendPrivateMessage(socketId: string, message: string) {
+    const socket = this.users.get(socketId);
+    if (socket) {
+      socket.emit("privateMessage", message);
+    } else {
+      console.error(`Failed to send message to ${socketId}, socket not found`);
     }
   }
 }

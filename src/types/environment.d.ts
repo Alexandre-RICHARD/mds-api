@@ -5,6 +5,7 @@ declare global {
     // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
     interface ProcessEnv {
       LOCAL_PORT: number;
+      LOCAL_ADRESS: string;
       DB_HOST: string;
       DB_PORT: number;
       DB_USER: string;

@@ -4,15 +4,15 @@
 X - Node / Express
 X - SQL Serveur
 X - ORM (ex: Sequelize)
-- Documentation : obligatoire avec SWAGGER
+X - Documentation : obligatoire avec SWAGGER
 X - JSON (pas de XML ou de CSV)
 X - **Mise en prod : attendre pour le moment**
-- Mocha / JEST pour les tests
+X - Mocha / JEST pour les tests
 
 ## Bonnes pratiques imposées 
 X - Intégrer obligatoirement un numéro de version dans vos URLs
 X - Respect du Linter ESLint avec la configuration donnée (cf ./documentation/linter.md)
-- Les paramètres pour filtrer vos résultats de recherches doivent être passer en $_GET (dans l'URL via ```?param1=valeur1&param2=valeur2```")
+X - Les paramètres pour filtrer vos résultats de recherches doivent être passer en $_GET (dans l'URL via ```?param1=valeur1&param2=valeur2```")
 
 ## Recherches / Organisation / Explications imposées
 X - 1 repo GIT => créé maintenant, et vous me l'envoyez sur la discussion teams
@@ -78,18 +78,17 @@ X        - 💩 Documentation sur le HTTP + HTTPS, avec tous les codes d'erreur 
 
 
 ## Barème d'évaluation
-
-- Swagger / Documentation => 3pts
+X - Swagger / Documentation => 3pts
 X - Connexion BDD => 1 pt
 X - ORM => 3 pts
 - REST => 4 pts
 X - JSON / XML : header request => 1pt
 X - JWT => 3 pts
 X - Mise en production (avec P2M + SQLServer) => 4 pts
-- Tests unitaires + tests de charge (K6 / Artillery) => 3 pts
+X - Tests unitaires + tests de charge (K6 / Artillery) => 3 pts
 X - Postman + collections + token => 4 pts
 X - Architecture & Qualité de code => 4 pts
-- page dédiée chat avec Socket.io => en lien avec le DAB => 10 pts
+X - page dédiée chat avec Socket.io => en lien avec le DAB => 10 pts
 
 ## Repo GIT
 

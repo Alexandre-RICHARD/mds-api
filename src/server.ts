@@ -30,10 +30,7 @@ app.use((req: Request, res: Response): void => {
 });
 
 const PORT = process.env.LOCAL_PORT;
-export const start = () =>
-  testDatabase().catch((error) => {
-    throw new Error(JSON.stringify(error));
-  });
+export const start = () => testDatabase();
 app.listen(PORT, (): void => {
   // eslint-disable-next-line no-console
   console.log(`Server works on http://localhost:${PORT}`);

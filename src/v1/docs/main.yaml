@@ -1,0 +1,104 @@
+openapi: 3.0.0
+info:
+  title: API Project
+  version: 1.0.0
+  description: Documentation de l'API du tchat
+
+paths:
+  /users:
+    get:
+      summary: Récupérer tous les utilisateurs
+      description: Récupère la liste de tous les utilisateurs enregistrés.
+      responses:
+        "200":
+          description: Liste des utilisateurs récupérée avec succès
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      description: L'identifiant unique de l'utilisateur
+                    name:
+                      type: string
+                      description: Le nom de l'utilisateur
+                    email:
+                      type: string
+                      description: L'email de l'utilisateur
+    post:
+      summary: Ajouter un utilisateur
+      description: Permet d'ajouter un nouvel utilisateur.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Le nom de l'utilisateur
+                  example: John Doe
+                email:
+                  type: string
+                  description: L'email de l'utilisateur
+                  example: john.doe@example.com
+      responses:
+        "201":
+          description: Utilisateur créé avec succès
+        "400":
+          description: Erreur de validation des données d'entrée
+
+  /users/{userId}:
+    get:
+      summary: Récupérer un utilisateur par ID
+      description: Récupère un utilisateur spécifique en fonction de son ID.
+      parameters:
+      - name: userId
+        in: path
+        required: true
+        description: L'identifiant de l'utilisateur à récupérer
+        schema:
+          type: integer
+      responses:
+        "200":
+          description: Utilisateur trouvé
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                  email:
+                    type: string
+        "404":
+          description: Utilisateur non trouvé
+
+  /login:
+    post:
+      summary: Authentifier un utilisateur
+      description: Permet de s'authentifier avec un email et un mot de passe.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: L'email de l'utilisateur
+                password:
+                  type: string
+                  description: Le mot de passe de l'utilisateur
+      responses:
+        "200":
+          description: Authentification réussie
+        "401":
+          description: Échec de l'authentification - Identifiants incorrects

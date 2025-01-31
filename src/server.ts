@@ -3,10 +3,8 @@ import dotenv from "dotenv";
 import express, { type Express, type Request, type Response } from "express";
 import { createServer } from "http";
 import path from "path";
-import swaggerUi from "swagger-ui-express";
 
 import { database, testDatabase } from "./database";
-import { specs } from "./specs";
 import { routerV1 } from "./v1/routerV1";
 import { SocketService } from "./v1/socketIo";
 
@@ -33,13 +31,6 @@ app.set("view engine", "ejs");
 
 // Specify where are the views
 app.set("views", path.join(process.cwd(), "src/views"));
-
-// Expose api documentation
-app.use(
-  "/api-docs",
-  swaggerUi.serve,
-  swaggerUi.setup(specs, { explorer: true }),
-);
 
 // Handle all remaining endpoint that does not match any routes
 app.use((req: Request, res: Response): void => {

@@ -52,15 +52,15 @@ paths:
         "400":
           description: Erreur de validation des données d'entrée
 
-  /users/{userId}:
+  /users/role/{userRole}:
     get:
-      summary: Récupérer un utilisateur par ID
-      description: Récupère un utilisateur spécifique en fonction de son ID.
+      summary: Récupérer les utilisateurs par leur role
+      description: Récupère tous les utilisateurs ayant un rôle spécifique
       parameters:
-      - name: userId
+      - name: userRole
         in: path
         required: true
-        description: L'identifiant de l'utilisateur à récupérer
+        description: Le role de l'utilisateur
         schema:
           type: integer
       responses:

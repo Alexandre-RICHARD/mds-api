@@ -1,4 +1,0 @@
-- Rajouter une route spécifique au fait de modifier le mot de passe
-- Rajouter une route spécifique au fait de modifier l'adresse-mail
-- Rajouter une route permettant à un utilisateur de modifier le rôle d'un autre (probable que cela nécessite de mettre en place des restrictions sur les rôles à partir du token)
-- Vérifier que tous les registeredAt, createdAt, updatedAt, deletedAt sont bien en place et arranger si ce n'est pas le cas (spoiler: ce n'est pas le cas)

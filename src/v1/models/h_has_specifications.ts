@@ -1,8 +1,10 @@
 import { DataTypes, type ModelDefined } from "sequelize";
 
 import { database as db } from "../../database";
-import type { HasSpecificationsModelAttributes } from "../types/models/h_has_specifications.type";
-import type { HasSpecificationsCreationAttributes } from "../types/modelsCreationAttributes/h_has_specifications.sequelizeAttributes.type";
+import type {
+  HasSpecificationsModelAttributes,
+  HasSpecificationsCreationAttributes,
+} from "../types";
 
 export const HasSpecificationsModel: ModelDefined<
   HasSpecificationsModelAttributes,

@@ -6,8 +6,17 @@ import { usersController } from "../controllers/usersController";
 
 export const usersRouter = createRouter();
 
+usersRouter.get("/", asyncSecurityHandler(usersController.getUsers));
 usersRouter.get(
   "/role/:role",
   asyncSecurityHandler(usersController.getUsersByRole),
 );
 usersRouter.post("/login", asyncHandler(usersController.login));
+usersRouter.post("/register", asyncHandler(usersController.register));
+usersRouter.put("/", asyncSecurityHandler(usersController.updateUser));
+usersRouter.put("/password", asyncSecurityHandler(usersController.updatePassword));
+usersRouter.put("/mail", asyncSecurityHandler(usersController.updateMail));
+usersRouter.delete(
+  "/:id",
+  asyncSecurityHandler(usersController.deleteUser),
+);

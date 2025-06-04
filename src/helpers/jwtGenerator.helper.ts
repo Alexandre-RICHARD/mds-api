@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 
-import type { JWTCreate } from "../v1/types/jwtCreate.type";
+import type { JWTCreate } from "../v1/types";
 
 export const jwtGenerator = (payload: JWTCreate): string => {
   const secretKey = process.env.JWT_SECRET_KEY;

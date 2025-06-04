@@ -1,7 +1,7 @@
 import type { Request, Response } from "express";
 
 import { SocketService } from "../socketIo";
-import type { SendMessageEndPointBody } from "../types/endpointBody/tchat/sendMessage.endpointBody.type";
+import type { SendMessageEndPointBody } from "../types";
 
 const messages: string[] = [];
 

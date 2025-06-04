@@ -1,8 +1,7 @@
 import { DataTypes, type ModelDefined } from "sequelize";
 
 import { database as db } from "../../database";
-import type { ImagesModelAttributes } from "../types/models/i_image.type";
-import type { ImagesCreationAttributes } from "../types/modelsCreationAttributes/i_image.sequelizeAttributes.type";
+import type { ImagesModelAttributes, ImagesCreationAttributes } from "../types";
 
 export const ImagesModel: ModelDefined<
   ImagesModelAttributes,

@@ -1,6 +1,5 @@
 import { UsersModel } from "../../models/u_user";
-import type { CreateUserArgs } from "../../types/query/users/args/createUser.args.type";
-import type { CreateUserReturn } from "../../types/query/users/return/createUser.return.type";
+import type { CreateUserArgs, CreateUserReturn } from "../../types";
 
 export const createUser = async ({
   role,

@@ -1,8 +1,10 @@
 import { DataTypes, type ModelDefined } from "sequelize";
 
 import { database as db } from "../../database";
-import type { DeliveryTourModelAttributes } from "../types/models/d_delivery_tour.type";
-import type { DeliveryTourCreationAttributes } from "../types/modelsCreationAttributes/d_delivery_tour.sequelizeAttributes.type";
+import type {
+  DeliveryTourModelAttributes,
+  DeliveryTourCreationAttributes,
+} from "../types";
 
 export const DeliveryTourModel: ModelDefined<
   DeliveryTourModelAttributes,

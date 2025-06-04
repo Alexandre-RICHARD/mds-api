@@ -3,7 +3,7 @@ import { expect, test } from "vitest";
 import { jwtDecoder } from "../../helpers/jwtDecoder.helper";
 import { jwtGenerator } from "../../helpers/jwtGenerator.helper";
 import { RoleEnum } from "../../v1/enum/role.enum";
-import type { JWTCreate } from "../../v1/types/jwtCreate.type";
+import type { JWTCreate } from "../../v1/types";
 
 test("JWT encode/decode well", () => {
   const userData: JWTCreate = {

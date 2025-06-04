@@ -1,6 +1,5 @@
 import { UsersModel } from "../../models/u_user";
-import type { GetUserByRoleArgs } from "../../types/query/users/args/getUsersByRole.args.type";
-import type { GetUserByRoleReturn } from "../../types/query/users/return/getUsersByRole.return.type";
+import type { GetUserByRoleArgs, GetUserByRoleReturn } from "../../types";
 
 export const getUsersByRole = async ({
   role,

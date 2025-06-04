@@ -1,8 +1,7 @@
 import { DataTypes, type ModelDefined } from "sequelize";
 
 import { database as db } from "../../database";
-import type { UserModelAttributes } from "../types/models/u_user.type";
-import type { UserCreationAttributes } from "../types/modelsCreationAttributes/u_user.sequelizeAttributes.type";
+import type { UserModelAttributes, UserCreationAttributes } from "../types";
 
 export const UsersModel: ModelDefined<
   UserModelAttributes,

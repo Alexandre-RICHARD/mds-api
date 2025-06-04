@@ -1,8 +1,10 @@
 import { DataTypes, type ModelDefined } from "sequelize";
 
 import { database as db } from "../../database";
-import type { CommercialHandlingModelAttributes } from "../types/models/c_commercial_handling.type";
-import type { CommercialHandlingCreationAttributes } from "../types/modelsCreationAttributes/c_commercial_handling.sequelizeAttributes.type";
+import type {
+  CommercialHandlingModelAttributes,
+  CommercialHandlingCreationAttributes,
+} from "../types";
 
 export const CommercialHandlingModel: ModelDefined<
   CommercialHandlingModelAttributes,

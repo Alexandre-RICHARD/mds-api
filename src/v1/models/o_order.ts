@@ -1,8 +1,7 @@
 import { DataTypes, type ModelDefined } from "sequelize";
 
 import { database as db } from "../../database";
-import type { OrdersModelAttributes } from "../types/models/o_order.type";
-import type { OrdersCreationAttributes } from "../types/modelsCreationAttributes/o_order.sequelizeAttributes.type";
+import type { OrdersModelAttributes, OrdersCreationAttributes } from "../types";
 
 export const OrdersModel: ModelDefined<
   OrdersModelAttributes,

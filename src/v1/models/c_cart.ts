@@ -1,8 +1,7 @@
 import { DataTypes, type ModelDefined } from "sequelize";
 
 import { database as db } from "../../database";
-import type { CartModelAttributes } from "../types/models/c_cart.type";
-import type { CartCreationAttributes } from "../types/modelsCreationAttributes/c_cart.sequelizeAttributes.type";
+import type { CartModelAttributes, CartCreationAttributes } from "../types";
 
 export const CartModel: ModelDefined<
   CartModelAttributes,

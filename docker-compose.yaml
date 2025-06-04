@@ -1,18 +1,4 @@
 services:
-  sqlserver:
-    image: mcr.microsoft.com/mssql/server:2022-latest
-    container_name: sqlserver
-    restart: always
-    ports:
-      - "40110:${DB_PORT}"
-    environment:
-      SA_PASSWORD: "${DB_PASSWORD}"
-      ACCEPT_EULA: "Y"
-    volumes:
-      - sqlserver_data:/var/opt/mssql
-    networks:
-      - app_network
-
   nodeapp:
     build: .
     container_name: nodeapp
@@ -20,19 +6,9 @@ services:
     ports:
       - "8080:8080"
     environment:
-      DB_HOST: "sqlserver"
-      DB_PORT: "${DB_PORT}"
-      DB_USER: "${DB_USER}"
-      DB_PASSWORD: "${DB_PASSWORD}"
-      DB_NAME: "${DB_DATABASE}"
-    depends_on:
-      - sqlserver
-    networks:
-      - app_network
+      DB_SQLITE_PATH: "/db/database.db"
+    volumes:
+      - sqlite_data:/db
 
 volumes:
-  sqlserver_data:
-
-networks:
-  app_network:
-    driver: bridge
+  sqlite_data:

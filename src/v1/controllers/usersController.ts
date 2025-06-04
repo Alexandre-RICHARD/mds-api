@@ -7,13 +7,27 @@ import { RoleEnum } from "../enum/role.enum";
 import { createUser } from "../query/users/createUser";
 import { findUserByEmail } from "../query/users/findUserByEmail";
 import { findUserById } from "../query/users/findUserById";
+import { getAllUsers } from "../query/users/getAllUsers";
 import { getUsersByRole } from "../query/users/getUsersByRole";
+import { deleteUser as deleteUserQuery } from "../query/users/deleteUser";
 import { updateUser } from "../query/users/updateUser";
-import type { LoginEndpointBody } from "../types/endpointBody/users/login.endpointBody.type";
-import type { RegisterEndpointBody } from "../types/endpointBody/users/register.endpointBody.type";
-import type { UpdateUserEndpointBody } from "../types/endpointBody/users/updateUser.endpointBody.type";
+import type {
+  LoginEndpointBody,
+  RegisterEndpointBody,
+  UpdateUserEndpointBody,
+  UpdatePasswordEndpointBody,
+  UpdateMailEndpointBody,
+} from "../types";
 
 export const usersController = {
+  getUsers: async (_req: Request, res: Response) => {
+    try {
+      const results = await getAllUsers();
+      res.status(200).json(results);
+    } catch (error) {
+      res.status(500).json(["server-error", error]);
+    }
+  },
   getUsersByRole: async (req: Request, res: Response) => {
     const { role } = req.params;
     try {
@@ -113,21 +127,78 @@ export const usersController = {
     try {
       const user = await updateUser({
         user: userToUpdate,
-        role: userToUpdate.dataValues.u_role,
-        registeredAt: userToUpdate.dataValues.u_registered_at,
-        lastname,
-        firstname,
-        mail,
-        hashedPassword: await bcryptEncoderHelper(rawPassword),
-        adressCountry,
-        adressRegionCode,
-        adressCity,
-        adressLocation,
-        adressPrecision,
-        isDeleted: userToUpdate.dataValues.u_is_deleted,
+        updateData: {
+          u_lastname: lastname,
+          u_firstname: firstname,
+          u_mail_adress: mail,
+          u_hashed_password: await bcryptEncoderHelper(rawPassword),
+          u_adress_country: adressCountry,
+          u_adress_region_code: adressRegionCode,
+          u_adress_city: adressCity,
+          u_adress_location: adressLocation,
+          u_adress_precision: adressPrecision,
+        },
       });
 
-      return res.status(201).json(user);
+      return res.status(200).json(user);
+    } catch (error) {
+      return res.status(501).json(error);
+    }
+  },
+
+  updatePassword: async (req: Request, res: Response) => {
+    const { userId, rawPassword } = req.body as UpdatePasswordEndpointBody;
+
+    const userToUpdate = await findUserById({ id: userId });
+
+    if (!userToUpdate) {
+      return res.status(404).json("user_not_found");
+    }
+
+    try {
+      const user = await updateUser({
+        user: userToUpdate,
+        updateData: {
+          u_hashed_password: await bcryptEncoderHelper(rawPassword),
+        },
+      });
+      return res.status(200).json(user);
+    } catch (error) {
+      return res.status(501).json(error);
+    }
+  },
+
+  updateMail: async (req: Request, res: Response) => {
+    const { userId, mail } = req.body as UpdateMailEndpointBody;
+
+    const userToUpdate = await findUserById({ id: userId });
+
+    if (!userToUpdate) {
+      return res.status(404).json("user_not_found");
+    }
+
+    try {
+      const user = await updateUser({
+        user: userToUpdate,
+        updateData: { u_mail_adress: mail },
+      });
+      return res.status(200).json(user);
+    } catch (error) {
+      return res.status(501).json(error);
+    }
+  },
+
+  deleteUser: async (req: Request, res: Response) => {
+    const { id } = req.params;
+    const userToDelete = await findUserById({ id: Number(id) });
+
+    if (!userToDelete) {
+      return res.status(404).json("user_not_found");
+    }
+
+    try {
+      const user = await deleteUserQuery({ user: userToDelete });
+      return res.status(200).json(user);
     } catch (error) {
       return res.status(501).json(error);
     }

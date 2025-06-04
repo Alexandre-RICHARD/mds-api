@@ -6,7 +6,7 @@ dotenv.config();
 // Par exemple : process.env.DB_SQLITE_PATH = './database.sqlite'
 export const database = new Sequelize({
   dialect: "sqlite",
-  storage: process.env.DB_SQLITE_PATH ?? "./src/database.ts",
+  storage: process.env.DB_SQLITE_PATH ?? "./src/database.db",
   logging: false,
 });
 

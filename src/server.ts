@@ -26,9 +26,6 @@ app.use(express.json());
 // All endpoints starting with /vX will be handle by its linked router only
 app.use("/v1", routerV1);
 
-// Define EJS as render template
-app.set("view engine", "ejs");
-
 // Specify where are the views
 app.set("views", path.join(process.cwd(), "src/views"));
 

@@ -45,17 +45,20 @@ const server = createServer(app);
 SocketService.getInstance().initialize(server);
 
 const PORT = process.env.LOCAL_PORT;
-export const start = () => testDatabase();
-server.listen(PORT, (): void => {
-  // eslint-disable-next-line no-console
-  console.log(`Server works on ${process.env.LOCAL_ADRESS}${PORT}`);
-});
+export const start = async () => {
+  await testDatabase();
 
-// Close database connection when server disconnect
-// eslint-disable-next-line @typescript-eslint/no-misused-promises
-process.on("SIGINT", async () => {
-  await database.close();
-  // eslint-disable-next-line no-console
-  console.log("Serveur arrêté et connexion à la base de données fermée.");
-  process.exit(0);
-});
+  server.listen(PORT, (): void => {
+    // eslint-disable-next-line no-console
+    console.log(`Server works on ${process.env.LOCAL_ADRESS}${PORT}`);
+  });
+
+  // Close database connection when server disconnect
+  // eslint-disable-next-line @typescript-eslint/no-misused-promises
+  process.on("SIGINT", async () => {
+    await database.close();
+    // eslint-disable-next-line no-console
+    console.log("Serveur arrêté et connexion à la base de données fermée.");
+    process.exit(0);
+  });
+};

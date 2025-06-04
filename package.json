@@ -14,7 +14,9 @@
         "check-types": "tsc --noEmit",
         " === Pnpm === ": "",
         "install-dependencies": "pnpm i",
-        "update-dependencies": "pnpm update"
+        "update-dependencies": "pnpm update",
+        " === Database ===": "",
+        "init-db": "sqlite3 ./src/database.db '' && sqlite3 ./src/database.db < ./documentation/dbInit.sqlite.sql"
     },
     "dependencies": {
         "bcrypt": "^5.1.1",
@@ -54,6 +56,7 @@
         "eslint-plugin-simple-import-sort": "^12.1.1",
         "nodemon": "^3.0.3",
         "prettier": "^3.4.2",
+        "sqlite3": "^5.1.7",
         "typescript-eslint": "^8.17.0",
         "vitest": "^3.0.4"
     }

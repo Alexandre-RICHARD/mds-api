@@ -3,23 +3,12 @@ import { Sequelize } from "sequelize";
 
 dotenv.config();
 
-export const database = new Sequelize(
-  process.env.DB_DATABASE,
-  process.env.DB_USER,
-  process.env.DB_PASSWORD,
-  {
-    host: process.env.DB_HOST,
-    port: process.env.DB_PORT,
-    dialect: "mssql",
-    dialectOptions: {
-      options: {
-        encrypt: false,
-        trustServerCertificate: true,
-      },
-    },
-    logging: false,
-  },
-);
+// Par exemple : process.env.DB_SQLITE_PATH = './database.sqlite'
+export const database = new Sequelize({
+  dialect: "sqlite",
+  storage: process.env.DB_SQLITE_PATH ?? "./src/database.ts",
+  logging: false,
+});
 
 export const testDatabase = async () => {
   try {
@@ -27,7 +16,7 @@ export const testDatabase = async () => {
   } catch (error) {
     console.error(error);
     throw new Error(
-      `Erreur lors de la connexion à la base : ${JSON.stringify(error)}`,
+      `Erreur lors de la connexion à la base SQLite : ${JSON.stringify(error)}`,
     );
   }
 };

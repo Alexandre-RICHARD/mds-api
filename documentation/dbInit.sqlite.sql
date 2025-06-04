@@ -1,20 +1,3 @@
-IF EXISTS (
-  SELECT
-    name
-  FROM
-    sys.databases
-  WHERE
-    name = 'mds_api_database'
-) BEGIN ALTER DATABASE mds_api_database
-SET
-  SINGLE_USER WITH ROLLBACK IMMEDIATE;
-
-DROP DATABASE mds_api_database;
-
-END;
-
-CREATE DATABASE mds_api_database;
-
 -- ===================================
 -- Drop all table in the right order to properly dismantle Foreign key reference
 -- ===================================
@@ -52,9 +35,9 @@ DROP TABLE IF EXISTS i_image;
 -- Create all table with their property, type and foreign key
 -- ===================================
 CREATE TABLE u_user(
-  u_id_user INT IDENTITY,
+  u_id_user INTEGER PRIMARY KEY AUTOINCREMENT,
   u_role VARCHAR(30) NOT NULL,
-  u_registered_at DATETIMEOFFSET NOT NULL,
+  u_registered_at INTEGER NOT NULL,
   u_lastname VARCHAR(50) NOT NULL,
   u_firstname VARCHAR(50) NOT NULL,
   u_mail_adress VARCHAR(100) NOT NULL,
@@ -64,152 +47,137 @@ CREATE TABLE u_user(
   u_adress_city VARCHAR(75) NOT NULL,
   u_adress_location VARCHAR(75) NOT NULL,
   u_adress_precision VARCHAR(75),
-  u_is_deleted BIT NOT NULL,
-  PRIMARY KEY(u_id_user)
+  u_is_deleted INTEGER NOT NULL
 );
 
 CREATE TABLE o_order(
-  o_id_user_order INT IDENTITY,
+  o_id_user_order INTEGER PRIMARY KEY AUTOINCREMENT,
   o_order_number VARCHAR(20) NOT NULL,
   o_status VARCHAR(30) NOT NULL,
-  o_ordered_at DATETIMEOFFSET NOT NULL,
-  o_discount MONEY NOT NULL,
-  o_final_price MONEY NOT NULL,
+  o_ordered_at INTEGER NOT NULL,
+  o_discount REAL NOT NULL,
+  o_final_price REAL NOT NULL,
   o_delivery_adress_country VARCHAR(75) NOT NULL,
   o_delivery_adress_region_code VARCHAR(20) NOT NULL,
   o_delivery_adress_city VARCHAR(75) NOT NULL,
   o_delivery_adress_location VARCHAR(75) NOT NULL,
-  o_delivery_adress_precision VARCHAR(75),
-  PRIMARY KEY(o_id_user_order)
+  o_delivery_adress_precision VARCHAR(75)
 );
 
 CREATE TABLE i_internal_message(
-  i_id_internal_message INT IDENTITY,
-  i_send_at DATETIMEOFFSET NOT NULL,
-  i_read_at DATETIMEOFFSET,
+  i_id_internal_message INTEGER PRIMARY KEY AUTOINCREMENT,
+  i_send_at INTEGER NOT NULL,
+  i_read_at INTEGER,
   i_message_content VARCHAR(5000) NOT NULL,
   i_id_user_receiver INT NOT NULL,
   i_id_user_sender INT NOT NULL,
-  PRIMARY KEY(i_id_internal_message),
   FOREIGN KEY(i_id_user_receiver) REFERENCES u_user(u_id_user),
   FOREIGN KEY(i_id_user_sender) REFERENCES u_user(u_id_user)
 );
 
 CREATE TABLE p_product_type(
-  p_id_product_type INT IDENTITY,
-  p_type_name VARCHAR(50) NOT NULL,
-  PRIMARY KEY(p_id_product_type)
+  p_id_product_type INTEGER PRIMARY KEY AUTOINCREMENT,
+  p_type_name VARCHAR(50) NOT NULL
 );
 
 CREATE TABLE p_product_specification(
-  p_id_product_specification INT IDENTITY,
+  p_id_product_specification INTEGER PRIMARY KEY AUTOINCREMENT,
   p_specification_name VARCHAR(100) NOT NULL,
-  p_is_specific_value BIT NOT NULL,
-  p_possible_value VARCHAR(200),
-  PRIMARY KEY(p_id_product_specification)
+  p_is_specific_value INTEGER NOT NULL,
+  p_possible_value VARCHAR(200)
 );
 
 CREATE TABLE i_image(
-  i_id_image INT IDENTITY,
-  i_image VARBINARY(max) NOT NULL,
-  PRIMARY KEY(i_id_image)
+  i_id_image INTEGER PRIMARY KEY AUTOINCREMENT,
+  i_image BLOB NOT NULL
 );
 
 CREATE TABLE c_commercial_handling(
-  c_id_commercial_handling INT IDENTITY,
+  c_id_commercial_handling INTEGER PRIMARY KEY AUTOINCREMENT,
   c_id_user_handler INT NOT NULL,
   c_id_user_handled INT NOT NULL,
-  PRIMARY KEY(c_id_commercial_handling),
   FOREIGN KEY(c_id_user_handler) REFERENCES u_user(u_id_user),
   FOREIGN KEY(c_id_user_handled) REFERENCES u_user(u_id_user)
 );
 
 CREATE TABLE d_delivery_tour(
-  d_id_delivery_tour INT IDENTITY,
-  d_start_at DATETIMEOFFSET NOT NULL,
-  d_end_at DATETIMEOFFSET NOT NULL,
+  d_id_delivery_tour INTEGER PRIMARY KEY AUTOINCREMENT,
+  d_start_at INTEGER NOT NULL,
+  d_end_at INTEGER NOT NULL,
   d_id_user INT NOT NULL,
-  PRIMARY KEY(d_id_delivery_tour),
   FOREIGN KEY(d_id_user) REFERENCES u_user(u_id_user)
 );
 
 CREATE TABLE p_product(
-  p_id_product INT IDENTITY,
+  p_id_product INTEGER PRIMARY KEY AUTOINCREMENT,
   p_name VARCHAR(200) NOT NULL,
   p_description VARCHAR(8000) NOT NULL,
-  p_price MONEY NOT NULL,
-  p_registered_at DATETIMEOFFSET NOT NULL,
-  p_is_available BIT NOT NULL,
+  p_price REAL NOT NULL,
+  p_registered_at INTEGER NOT NULL,
+  p_is_available INTEGER NOT NULL,
   p_stock INT NOT NULL,
-  p_disable_at DATETIMEOFFSET,
+  p_disable_at INTEGER,
   p_id_product_type INT NOT NULL,
   p_id_user INT NOT NULL,
-  PRIMARY KEY(p_id_product),
   FOREIGN KEY(p_id_product_type) REFERENCES p_product_type(p_id_product_type),
   FOREIGN KEY(p_id_user) REFERENCES u_user(u_id_user)
 );
 
 CREATE TABLE d_delivery(
-  d_id_delivery INT IDENTITY,
+  d_id_delivery INTEGER PRIMARY KEY AUTOINCREMENT,
   d_delivery_number VARCHAR(50) NOT NULL,
   d_status VARCHAR(30) NOT NULL,
-  d_shipped_at DATETIMEOFFSET,
-  d_delivered_at DATETIMEOFFSET,
+  d_shipped_at INTEGER,
+  d_delivered_at INTEGER,
   d_id_delivery_tour INT NOT NULL,
-  PRIMARY KEY(d_id_delivery),
   FOREIGN KEY(d_id_delivery_tour) REFERENCES d_delivery_tour(d_id_delivery_tour)
 );
 
 CREATE TABLE c_customer_review(
-  c_id_customer_review INT IDENTITY,
+  c_id_customer_review INTEGER PRIMARY KEY AUTOINCREMENT,
   c_review_content VARCHAR(5000) NOT NULL,
-  c_verified BIT NOT NULL,
-  c_rediged_at DATETIMEOFFSET NOT NULL,
+  c_verified INTEGER NOT NULL,
+  c_rediged_at INTEGER NOT NULL,
   c_id_user INT NOT NULL,
   c_id_product INT NOT NULL,
-  PRIMARY KEY(c_id_customer_review),
   FOREIGN KEY(c_id_user) REFERENCES u_user(u_id_user),
   FOREIGN KEY(c_id_product) REFERENCES p_product(p_id_product)
 );
 
 CREATE TABLE c_cart(
-  c_id_cart INT IDENTITY,
+  c_id_cart INTEGER PRIMARY KEY AUTOINCREMENT,
   c_id_user INT,
   c_id_product INT,
   c_quantity SMALLINT NOT NULL,
-  PRIMARY KEY(c_id_cart),
   FOREIGN KEY(c_id_user) REFERENCES u_user(u_id_user),
   FOREIGN KEY(c_id_product) REFERENCES p_product(p_id_product)
 );
 
 CREATE TABLE h_has_specifications(
-  h_id_has_specifications INT IDENTITY,
+  h_id_has_specifications INTEGER PRIMARY KEY AUTOINCREMENT,
   h_id_product_type INT,
   h_id_product_specification INT,
-  PRIMARY KEY(h_id_has_specifications),
   FOREIGN KEY(h_id_product_type) REFERENCES p_product_type(p_id_product_type),
   FOREIGN KEY(h_id_product_specification) REFERENCES p_product_specification(p_id_product_specification)
 );
 
 CREATE TABLE p_product_has_specification(
-  p_id_product_has_specification INT IDENTITY,
+  p_id_product_has_specification INTEGER PRIMARY KEY AUTOINCREMENT,
   p_id_product INT,
   p_id_product_specification INT,
   p_product_specification_value VARCHAR(200),
-  PRIMARY KEY(p_id_product_has_specification),
   FOREIGN KEY(p_id_product) REFERENCES p_product(p_id_product),
   FOREIGN KEY(p_id_product_specification) REFERENCES p_product_specification(p_id_product_specification)
 );
 
 CREATE TABLE o_order_contains(
-  o_id_order_contains INT IDENTITY,
+  o_id_order_contains INTEGER PRIMARY KEY AUTOINCREMENT,
   o_id_user INT,
   o_id_product INT,
   o_id_order INT,
   o_id_delivery INT,
   o_quantity VARCHAR(50),
-  o_individual_price MONEY NOT NULL,
-  PRIMARY KEY(o_id_order_contains),
+  o_individual_price REAL NOT NULL,
   FOREIGN KEY(o_id_user) REFERENCES u_user(u_id_user),
   FOREIGN KEY(o_id_product) REFERENCES p_product(p_id_product),
   FOREIGN KEY(o_id_order) REFERENCES o_order(o_id_user_order),
@@ -253,6 +221,7 @@ GO
 -- ===================================
 -- Create view
 -- ===================================
+DROP VIEW IF EXISTS commercial_supplier_info;
 CREATE VIEW commercial_supplier_info AS
 SELECT
   UPPER(supplier.u_lastname) + ' ' + UPPER(supplier.u_firstname) AS supplier_name,

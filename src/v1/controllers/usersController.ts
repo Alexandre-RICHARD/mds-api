@@ -92,22 +92,11 @@ export const usersController = {
   },
 
   login: async (req: Request, res: Response) => {
-    const { email, rawPassword } = req.body as LoginEndpointBody;
+    const { email, password } = req.body as LoginEndpointBody;
 
     const foundUserByMail = await findUserByEmail({ email });
     if (!foundUserByMail) {
       return res.status(404).json("user_not_found_with_mail_adress");
-    }
-
-    const foundUserValues = foundUserByMail.dataValues;
-
-    const isPasswordsMatches = await bcryptComparatorHelper(
-      rawPassword,
-      foundUserValues.u_hashed_password,
-    );
-
-    if (!isPasswordsMatches) {
-      return res.status(403).json("wrong_credentials_for_login");
     }
 
     const {
@@ -116,7 +105,17 @@ export const usersController = {
       u_lastname: lastname,
       u_role: role,
       u_mail_adress: userEmail,
+      u_hashed_password: hashedPassword,
     } = foundUserByMail.dataValues;
+
+    const isPasswordsMatches = await bcryptComparatorHelper(
+      password,
+      hashedPassword,
+    );
+
+    if (!isPasswordsMatches) {
+      return res.status(403).json("wrong_credentials_for_login");
+    }
 
     const token = jwtGenerator({
       userId,

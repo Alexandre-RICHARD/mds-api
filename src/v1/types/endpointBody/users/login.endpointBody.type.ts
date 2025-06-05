@@ -1,4 +1,4 @@
 export type LoginEndpointBody = {
   email: string;
-  rawPassword: string;
+  password: string;
 };

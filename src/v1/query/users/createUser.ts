@@ -5,9 +5,9 @@ import type { CreateUserReturn } from "../../types/query/users/return/createUser
 export const createUser = async ({
   role,
   registeredAt,
-  lastname,
-  firstname,
-  mail,
+  lastName,
+  firstName,
+  email,
   hashedPassword,
   isDeleted,
 }: CreateUserArgs): CreateUserReturn => {
@@ -15,9 +15,9 @@ export const createUser = async ({
     const newUser = await UsersModel.create({
       u_role: role,
       u_registered_at: registeredAt,
-      u_lastname: lastname,
-      u_firstname: firstname,
-      u_mail_adress: mail,
+      u_lastname: lastName,
+      u_firstname: firstName,
+      u_mail_adress: email,
       u_hashed_password: hashedPassword,
       u_is_deleted: isDeleted,
     });

@@ -37,23 +37,57 @@ export const usersController = {
   },
 
   register: async (req: Request, res: Response) => {
-    const { firstname, lastname, mail, password } =
+    const { firstName, lastName, email, password } =
       req.body as RegisterEndpointBody;
 
     try {
+      const hashedPassword = await bcryptEncoderHelper(password);
+
       const user = await createUser({
         role: RoleEnum.customer,
         registeredAt: new Date(),
-        lastname,
-        firstname,
-        mail,
-        hashedPassword: await bcryptEncoderHelper(password),
+        lastName,
+        firstName,
+        email,
+        hashedPassword,
         isDeleted: false,
       });
 
-      return res.status(201).json(user);
+      if (!user?.dataValues) {
+        return res
+          .status(500)
+          .json({ error: "Échec de la création de l'utilisateur." });
+      }
+
+      const {
+        u_id_user: userId,
+        u_firstname: firstname,
+        u_lastname: lastname,
+        u_role: role,
+        u_mail_adress: userEmail,
+      } = user.dataValues;
+
+      const token = jwtGenerator({
+        userId,
+        fullname: `${firstname} ${lastname}`,
+        role,
+        email: userEmail,
+      });
+
+      res.header("Authorization", `Bearer ${token}`);
+
+      return res.status(201).json({
+        user: {
+          firstName: firstname,
+          lastName: lastname,
+          email: userEmail,
+        },
+      });
     } catch (error) {
-      return res.status(501).json(error);
+      console.error(error);
+      return res
+        .status(500)
+        .json({ error: "Une erreur est survenue lors de l'inscription." });
     }
   },
 
@@ -76,16 +110,30 @@ export const usersController = {
       return res.status(403).json("wrong_credentials_for_login");
     }
 
-    const newToken = jwtGenerator({
-      userId: foundUserValues.u_id_user,
-      fullname: `${foundUserValues.u_firstname} ${foundUserValues.u_lastname}`,
-      role: foundUserValues.u_role,
-      email: foundUserValues.u_mail_adress,
+    const {
+      u_id_user: userId,
+      u_firstname: firstname,
+      u_lastname: lastname,
+      u_role: role,
+      u_mail_adress: userEmail,
+    } = foundUserByMail.dataValues;
+
+    const token = jwtGenerator({
+      userId,
+      fullname: `${firstname} ${lastname}`,
+      role,
+      email: userEmail,
     });
 
-    res.header("Authorization", `Bearer ${newToken}`);
+    res.header("Authorization", `Bearer ${token}`);
 
-    return res.status(200).json("auth_ok");
+    return res.status(200).json({
+      user: {
+        firstName: firstname,
+        lastName: lastname,
+        email: userEmail,
+      },
+    });
   },
 
   updateUser: async (req: Request, res: Response) => {

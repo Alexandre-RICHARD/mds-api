@@ -1,9 +1,9 @@
 export type CreateUserArgs = {
   role: string;
   registeredAt: Date;
-  lastname: string;
-  firstname: string;
-  mail: string;
+  lastName: string;
+  firstName: string;
+  email: string;
   hashedPassword: string;
   isDeleted: boolean;
 };

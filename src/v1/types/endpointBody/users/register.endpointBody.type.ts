@@ -1,7 +1,7 @@
 export type RegisterEndpointBody = {
-  firstname: string;
-  lastname: string;
-  mail: string;
+  firstName: string;
+  lastName: string;
+  email: string;
   password: string;
   confirmationPassword: string;
 };

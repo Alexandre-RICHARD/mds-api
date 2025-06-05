@@ -9,11 +9,6 @@ export const createUser = async ({
   firstname,
   mail,
   hashedPassword,
-  adressCountry,
-  adressRegionCode,
-  adressCity,
-  adressLocation,
-  adressPrecision,
   isDeleted,
 }: CreateUserArgs): CreateUserReturn => {
   try {
@@ -24,11 +19,6 @@ export const createUser = async ({
       u_firstname: firstname,
       u_mail_adress: mail,
       u_hashed_password: hashedPassword,
-      u_adress_country: adressCountry,
-      u_adress_region_code: adressRegionCode,
-      u_adress_city: adressCity,
-      u_adress_location: adressLocation,
-      u_adress_precision: adressPrecision,
       u_is_deleted: isDeleted,
     });
     return newUser;

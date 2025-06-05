@@ -11,7 +11,8 @@ import { SocketService } from "./v1/socketIo";
 dotenv.config();
 
 const corsOptions = {
-  origin: process.env.CORS_ORIGIN?.split(" "),
+  // origin: process.env.CORS_ORIGIN?.split(" "),
+  origin: "*",
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: true,
   preflightContinue: false,

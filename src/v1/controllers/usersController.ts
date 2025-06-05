@@ -37,17 +37,8 @@ export const usersController = {
   },
 
   register: async (req: Request, res: Response) => {
-    const {
-      lastname,
-      firstname,
-      mail,
-      rawPassword,
-      adressCountry,
-      adressRegionCode,
-      adressCity,
-      adressLocation,
-      adressPrecision,
-    } = req.body as RegisterEndpointBody;
+    const { firstname, lastname, mail, password } =
+      req.body as RegisterEndpointBody;
 
     try {
       const user = await createUser({
@@ -56,12 +47,7 @@ export const usersController = {
         lastname,
         firstname,
         mail,
-        hashedPassword: await bcryptEncoderHelper(rawPassword),
-        adressCountry,
-        adressRegionCode,
-        adressCity,
-        adressLocation,
-        adressPrecision,
+        hashedPassword: await bcryptEncoderHelper(password),
         isDeleted: false,
       });
 

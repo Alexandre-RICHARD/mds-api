@@ -42,10 +42,10 @@ CREATE TABLE u_user(
   u_firstname VARCHAR(50) NOT NULL,
   u_mail_adress VARCHAR(100) NOT NULL,
   u_hashed_password VARCHAR(60) NOT NULL,
-  u_adress_country VARCHAR(75) NOT NULL,
-  u_adress_region_code VARCHAR(20) NOT NULL,
-  u_adress_city VARCHAR(75) NOT NULL,
-  u_adress_location VARCHAR(75) NOT NULL,
+  u_adress_country VARCHAR(75),
+  u_adress_region_code VARCHAR(20),
+  u_adress_city VARCHAR(75),
+  u_adress_location VARCHAR(75),
   u_adress_precision VARCHAR(75),
   u_is_deleted INTEGER NOT NULL
 );

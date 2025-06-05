@@ -11,8 +11,8 @@ usersRouter.get(
   "/role/:role",
   asyncSecurityHandler(usersController.getUsersByRole),
 );
-usersRouter.post("/login", asyncHandler(usersController.login));
 usersRouter.post("/register", asyncHandler(usersController.register));
+usersRouter.post("/login", asyncHandler(usersController.login));
 usersRouter.put("/", asyncSecurityHandler(usersController.updateUser));
 usersRouter.put(
   "/password",

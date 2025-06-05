@@ -41,19 +41,19 @@ export const UsersModel: ModelDefined<
     },
     u_adress_country: {
       type: DataTypes.STRING(75),
-      allowNull: false,
+      allowNull: true,
     },
     u_adress_region_code: {
       type: DataTypes.STRING(20),
-      allowNull: false,
+      allowNull: true,
     },
     u_adress_city: {
       type: DataTypes.STRING(75),
-      allowNull: false,
+      allowNull: true,
     },
     u_adress_location: {
       type: DataTypes.STRING(75),
-      allowNull: false,
+      allowNull: true,
     },
     u_adress_precision: {
       type: DataTypes.STRING(75),

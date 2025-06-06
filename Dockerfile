@@ -1,18 +1,20 @@
-# Use node js alpine official image
 FROM node:20
 
 # Install pnpm globally
-RUN npm install -g pnpm
+RUN apt-get update && apt-get install -y python3 make g++ && rm -rf /var/lib/apt/lists/*
 
 # Define work repo
 WORKDIR /app
 
 # Copy package.json and package-lock.json
-COPY package.json ./
-COPY pnpm-lock.yaml ./
+COPY package.json .
+COPY pnpm-lock.yaml .
 
 # Install deps
-RUN pnpm install --prod
+RUN corepack enable && corepack prepare pnpm@latest --activate
+
+# Installer les dépendances
+RUN pnpm install --frozen-lockfile --prod
 
 # Copy all project
 COPY . .
@@ -24,4 +26,4 @@ ENV PORT=8080
 EXPOSE 8080
 
 # Start
-CMD ["npm", "run", "start-prod"]
+CMD ["pnpm", "start-prod"]

@@ -1,5 +1,5 @@
 # Use node js alpine official image
-FROM node:20-alpine
+FROM node:20
 
 # Install pnpm globally
 RUN npm install -g pnpm

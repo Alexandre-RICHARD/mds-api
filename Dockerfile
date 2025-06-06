@@ -14,7 +14,8 @@ COPY pnpm-lock.yaml .
 RUN corepack enable && corepack prepare pnpm@latest --activate
 
 # Installer les dépendances
-RUN pnpm install --frozen-lockfile --prod
+RUN pnpm install --frozen-lockfile --ignore-scripts && pnpm rebuild sqlite3
+
 
 # Copy all project
 COPY . .

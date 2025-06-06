@@ -235,9 +235,7 @@ export const usersController = {
     try {
       const user = await updateUser({
         user: userToUpdate,
-        updateData: {
-          u_mail_adress: mail,
-        },
+        updateData: { u_mail_adress: mail },
       });
       return res.status(200).json({
         user: {

@@ -1,4 +1,5 @@
 export type UpdatePasswordEndpointBody = {
-  userId: number;
+  email: string;
+  lastPassword: string;
   rawPassword: string;
 };

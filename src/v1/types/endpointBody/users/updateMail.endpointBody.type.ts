@@ -1,4 +1,4 @@
 export type UpdateMailEndpointBody = {
-  userId: number;
+  pastEmail: string;
   mail: string;
 };

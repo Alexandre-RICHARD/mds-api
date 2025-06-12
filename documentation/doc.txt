@@ -1,0 +1,241 @@
+# définitions
+
+- Endpoint : l'adresse précise où un client peut interagir avec une API
+
+# HTTP
+
+-> HyperText Transfert Protocol 
+
+## Méthodes
+
+Plusieurs méthodes : plusieurs sémantiques
+
+- GET : récupérer des infos
+- POST : envoyer des infos
+- PUT : Modifier une info -> on remplace TOUT
+- PATCH : Modifier une info -> on remplace PARTIELLEMENT
+- DELETE : Suppression
+
+## Réponses Status
+
+- 1xx (Informatif)
+- 2xx (Succès)
+- 3xx (Redirection)
+- 4xx (Erreur du client)
+- 5xx (Erreur du serveur)
+
+## HTTPS
+
+- HyperText Transfert Protocol **Secure**
+- Le secure est géré par : un certificat SSL
+    - SSL : authorité de certification qui garantit que votre serveur est sécurisé
+    - les données transittent de manière encryptées sur le net et sont cryptés/décryptés au départ et à l'arrivée de la requête
+
+    # JWT (Json Web Token)
+
+Se compose en 3 parties :
+- Un en-tête --> objet JSON
+- Une charge utile (payload) --> objet JSON (info que l'on transmettre)
+- Une signature
+
+On encode les 3 parties séparemment.
+D'abord l'entete puis la payload et on concatène les 2 en les séparant d'un "."
+On obtient la signature.
+
+https://jwt.io/ []
+
+
+## Installation
+
+```npm install jsonwebtoken --save```
+
+Tuto utilisation de JWT avec nodejs/express
+https://medium.com/@sbesnier1901/s%C3%A9curiser-une-api-avec-node-js-et-jwt-15e14d9df109 
+
+Créer middleware d'authentification pour vérifier la validité du token.
+
+# Linter
+
+## Package.json
+```
+{
+    "version": "1.0.0",
+    "name": "api",
+    "type": "module",
+    "scripts": {
+        "lint": "eslint .",
+        "lint-fix": "eslint . --fix"
+    },
+    "devDependencies": {
+        "@stylistic/eslint-plugin": "^2.12.0",
+        "eslint-config-airbnb": "^19.0.4",
+        "eslint-config-prettier": "^9.1.0",
+        "eslint-plugin-prettier": "^5.2.1",
+        "eslint-plugin-promise": "^7.2.1",
+        "prettier": "^3.4.2"
+    }
+}
+```
+
+## .eslintrc.cjs (à mettre à la racine)
+
+```
+module.exports = {
+    root: true,
+    env: {
+        browser: true,
+        es2021: true,
+        node: true,
+    },
+    ignorePatterns: ["node_modules"],
+    extends: ["eslint:recommended", "airbnb", "plugin:prettier/recommended"],
+    plugins: ["@stylistic"],
+    rules: {
+        // Classic rules
+        "no-console": ["warn", { allow: ["error"] }],
+
+        // Prettier rules
+        "prettier/prettier": [
+        "error",
+        {
+            printWidth: 80,
+            tabWidth: 2,
+            useTabs: false,
+            semi: true,
+            singleQuote: false,
+            quoteProps: "consistent",
+            trailingComma: "all",
+            bracketSpacing: true,
+            bracketSameLine: false,
+            arrowParens: "always",
+            endOfLine: "auto",
+            singleAttributePerLine: true,
+        },
+        ],
+    },
+};
+```
+
+## Linter en .mjs (.eslintrc.cjs)
+
+```
+import js from "@eslint/js";
+import globals from "globals";
+import prettier from "eslint-plugin-prettier";
+
+/** @type {import('eslint').Linter.FlatConfig[]} */
+export default [
+    {
+        files: ["**/*.mjs"], // Spécifiez les fichiers concernés
+        languageOptions: {
+            ecmaVersion: "latest",
+            sourceType: "module",
+            globals: {
+                ...globals.browser,
+                ...globals.node,
+                ...globals.es2021,
+            },
+        },
+        plugins: {
+            prettier,
+        },
+        rules: {
+            // Règles ESLint classiques
+            "no-console": ["warn", { allow: ["error"] }],
+
+            // Règles Prettier
+            "prettier/prettier": [
+                "error",
+                {
+                    printWidth: 80,
+                    tabWidth: 4,
+                    useTabs: false,
+                    semi: true,
+                    singleQuote: false,
+                    trailingComma: "all",
+                    bracketSpacing: true,
+                    arrowParens: "always",
+                    endOfLine: "auto",
+                },
+            ],
+        },
+    },
+];
+```
+
+
+# Postman
+
+## Collection
+
+1 collection = 1 dossier = 1 projet
++ 1 sous-dossier par ressource
+
+## Automatisation bearer
+
+1. Dans le dossier principal, créer une variable globale "token"
+2. Dans la requête "LOGIN", mettre le "script" suivant pour automatiser la récupération du token
+```
+var responseBody = pm.response.json();
+var token = responseBody.token;
+
+pm.collectionVariables.set("token", token);
+```
+3. Dans les autres requêtes, aller dans "authorisation", sélectionner "Bearer Token". Mettre en valeur ```{{token}}```.
+
+Lors de l'utilisation, il ne reste qu'à déclencher le Login pour que le token soit défini, puis vous pourrez faire les autres requêtes.
+
+# API Rest
+
+Une API Rest (REST = REpresentational State Transfer), c'est une  API qui est construite en respectant les principes de conception REST.
+
+## Principes de conception
+
+- Une API RESTful (donc une api au format REST) renvoi les données au demandeurs via un format défini, le plus courant étant le JSON
+- Les requêtes HTTP envoyées et émises d'une API Rest contiennent dans leurs en-têtes des informations spécifiques. Cela peut être :
+    - Informations d'authentification
+    - Données relatives au cookies
+    - URI (Uniform Resource Identifier) : Données tirés de l'URL
+    - Lien entre un client et un serveur, les deux ayant leur rôles bien définis
+    - Une interface entre ce client et ce serveur permettant de :
+    - accéder à la documentation de ces données, pouvoir les manipuler simplement
+    - auto-découvrabilité : En ayant obtenu une réponse abstraite, la réponse permet de savoir quelle requête effectuer pour explciter cette données.
+
+    [Lien doc](https://www.nicolashachet.com/blog/developpement-php/larchitecture-rest-expliquee-en-5-regles/)
+
+## Structure d'URI à respecter
+
+![URI](URI.png "URI")
+
+# MODELE DE RICHARDSON
+
+## Level 0 : The Swamp of POX
+
+Le point d'entrée vers l'application est unique et un seul verbe HTTP (GET ou POST) est utilisé par les requêtes du client.
+
+## Level 1 : Resources
+
+Ce niveau de maturité consiste en l’utilisation de plusieurs URIs comme points d’entrée du système d’information mais d’un seul verbe HTTP (GET ou POST).
+
+## Level 2 : HTTP Verbs
+
+Utilisation des méthodes HTTP autres que GET et POST pour signifier l’action souhaitée : PATCH / PUT / DELETE. 
+Ajout des codes de statut HTTP pour indiquer le résultat de l’opération.
+
+## Level 3 : Hypermedia Controls
+
+Les réponses contiennent des liens vers d’autres ressources. Les clients peuvent naviguer à travers l’API en suivant les liens.
+L’API ReST devient alors <b>discoverable</b>.
+
+https://guide-api-rest.marmicode.fr/api-rest/le-modele-de-maturite-de-richardson
+
+# Swagger
+
+Système de documentation d'API
+Permet de générer une documentation FONCTIONNELLE pour tester les API
+
+Lien pour apprendre à Swagger : 
+https://dev.to/kabartolo/how-to-document-an-express-api-with-swagger-ui-and-jsdoc-50do
+
+Lien demo : 
+https://editor.swagger.io/?_gl=1*x6tbjj*_gcl_aw*R0NMLjE3Mjg1NDY0NDUuQ2p3S0NBanc5cDI0QmhCX0Vpd0E4SUQ1QnJDUmNvTUZSOEZHMndLWTFOXzN6YUdmSHI4blRmZDdFLUFOaUsybV95MnMtNnBjNWZ1X0Zob0NvcmdRQXZEX0J3RQ..*_gcl_dc*R0NMLjE3Mjg1NDY0NDUuQ2p3S0NBanc5cDI0QmhCX0Vpd0E4SUQ1QnJDUmNvTUZSOEZHMndLWTFOXzN6YUdmSHI4blRmZDdFLUFOaUsybV95MnMtNnBjNWZ1X0Zob0NvcmdRQXZEX0J3RQ..*_gcl_au*MTY3OTQ0NDU4MS4xNzI4NTQ2NDMz

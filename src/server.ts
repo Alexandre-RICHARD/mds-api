@@ -49,7 +49,7 @@ export const start = async () => {
 
   server.listen(PORT, (): void => {
     // eslint-disable-next-line no-console
-    console.log(`Server works on ${process.env.LOCAL_ADDRESS}${PORT}`);
+    console.log(`Server works on ${process.env.LOCAL_ADDRESS}:${PORT}`);
   });
 
   // Close database connection when server disconnect
